@@ -1,0 +1,2 @@
+Windows+VS: cl *.cpp /EHsc /D "WIN32" 
+linux: g++ *.cpp -o test
