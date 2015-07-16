@@ -17,18 +17,36 @@ static const unsigned short LENGTH_MULTIPLE = 4;
 
 ///////////////////////////////////////////////////////////
 // define the encoding of current version 
-//// Chinese¡¢HongKong & TaiWan¡¢Indonesia
-//unsigned int CConv::m_nCurrentEncoding = 0;
-//std::string CConv::m_strCurrentEncoding = "gb18030";
+// Chinese; HongKong & TaiWan; Singapore & Malaysia; Indonesia;
+unsigned int CConv::m_nCurrentEncoding = 0;
+std::string CConv::m_strCurrentEncoding = "gb18030";
 
-// Thailand 
-unsigned int CConv::m_nCurrentEncoding = 874;
-std::string CConv::m_strCurrentEncoding = "CP874";
+bool CConv::m_bNeedConvert = true;
+
+//// Thailand 
+//unsigned int CConv::m_nCurrentEncoding = 874;
+//std::string CConv::m_strCurrentEncoding = "CP874";
+
+//// Brazil
+//unsigned int CConv::m_nCurrentEncoding = 28591;
+//std::string CConv::m_strCurrentEncoding = "ISO-8859-1";
+
+//// Korea 
+//unsigned int CConv::m_nCurrentEncoding = 949;
+//std::string CConv::m_strCurrentEncoding = "CP949";
+
+//// Vietnam
+//unsigned int CConv::m_nCurrentEncoding = 65001;
+//std::string CConv::m_strCurrentEncoding = "UTF-8";
 
 ///////////////////////////////////////////////////////////
 
 std::string CConv::ToUTF8(const string& strEncoding)
 {
+	if (!CConv::m_bNeedConvert)
+	{
+		return strEncoding;
+	}
 	string strOutUTF8 = strEncoding;
 #ifdef WIN32
 	if (CP_UTF8 != m_nCurrentEncoding)
@@ -110,6 +128,10 @@ std::string CConv::ToUTF8(const string& strEncoding)
 
 std::string CConv::UTF8To(const string& strUTF8)
 {
+	if (!CConv::m_bNeedConvert)
+	{
+		return strUTF8;
+	}
 	string strOutEncoding = strUTF8;
 #ifdef WIN32
 	if (CP_UTF8 != m_nCurrentEncoding)

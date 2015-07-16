@@ -17,5 +17,7 @@ public:
 public:
 	static unsigned int m_nCurrentEncoding;
 	static std::string m_strCurrentEncoding;
+	static bool m_bNeedConvert;
 };
 #endif
+
